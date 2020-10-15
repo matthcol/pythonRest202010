@@ -161,4 +161,24 @@ def read_stars_by_movie_directed_id(movie_id: int, db: Session = Depends(get_db)
     
 @app.get("/stars/by_movie_directed_title/", response_model=List[schemas.Star])
 def read_stars_by_movie_directed_title(t: str, db: Session = Depends(get_db)):
-    return crud.get_star_director_movie_by_title(db=db, title=t)    
+    return crud.get_star_director_movie_by_title(db=db, title=t)   
+
+@app.get("/stars/stats_movie_by_director")
+def read_stats_movie_by_director(db: Session = Depends(get_db)):
+    return crud.get_stats_movie_by_director(db=db)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

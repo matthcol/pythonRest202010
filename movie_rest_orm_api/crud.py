@@ -151,3 +151,13 @@ def get_star_director_movie_by_title(db: Session, title: str):
         .join(models.Movie.director)  
     return [ db_movie.director for db_movie in db_movies ]
 
+def get_stats_movie_by_director(db: Session, min_count: int=10):
+    return db.query(models.Star, func.count(models.Movie.id))  \
+        .join(models.Movie.director)        \
+        .group_by(models.Star)  \
+        .all()
+
+
+
+
+
