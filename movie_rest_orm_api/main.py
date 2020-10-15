@@ -1,4 +1,4 @@
-from typing import List, Optional, Set
+from typing import List, Optional, Tuple
 import logging
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -110,6 +110,11 @@ def read_movies_by_director(n: str, db: Session = Depends(get_db)):
 @app.get("/movies/by_actor", response_model=List[schemas.Movie])
 def read_movies_by_actor(n: str, db: Session = Depends(get_db)):
     return crud.get_movies_by_actor_endname(db=db, endname=n)
+
+@app.get("/movies/count_by_year")
+def read_count_movies_by_year(db: Session = Depends(get_db)) -> List[Tuple[int, int]]:
+    return crud.get_movies_count_by_year(db=db)
+
 
 # --- API Rest for Stars ---
     
