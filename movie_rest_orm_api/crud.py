@@ -6,6 +6,7 @@ manage CRUD and adapt model data from db to schema data to api rest
 from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, extract, between
+from sqlalchemy import func
 from fastapi.logger import logger
 import models, schemas
 
@@ -80,6 +81,13 @@ def get_movies_by_actor_endname(db: Session, endname: str):
     return db.query(models.Movie).join(models.Movie.actors) \
             .filter(models.Star.name.like(f'%{endname}'))   \
             .order_by(desc(models.Movie.year))              \
+            .all()
+            
+def get_movies_count_by_year(db: Session):
+    # NB: func.count() i.e. count(*) en SQL
+    return db.query(models.Movie.year, func.count())  \
+            .group_by(models.Movie.year)  \
+            .order_by(models.Movie.year)  \
             .all()
 
 # CRUD association
