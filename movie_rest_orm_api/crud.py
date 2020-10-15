@@ -158,6 +158,13 @@ def get_stats_movie_by_director(db: Session, min_count: int):
         .having(func.count(models.Movie.id) >= min_count) \
         .order_by(desc("movie_count")) \
         .all()
+        
+# exemple of alias
+#        actor = db.query(models.Stars).alias("actor")
+#        director = db.query(models.Movies).alias("director")
+#        actor.join(models.Movie.actors)
+#        ....    
+#        .join(director)
 
 
 
