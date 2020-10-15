@@ -44,6 +44,13 @@ class MovieDetail(Movie):
     director: Optional[Star] = None
     actors: List[Star] = []
     
+# Stats Models
+class MovieStat(BaseModel):
+    year: int
+    movie_count: int
+    min_duration: Optional[int]
+    max_duration: Optional[int]
+    avg_duration: Optional[float] 
     
     
     

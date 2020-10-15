@@ -90,6 +90,18 @@ def get_movies_count_by_year(db: Session):
             .order_by(models.Movie.year)  \
             .all()
 
+# alt. version returning dict instead of tuple
+def get_stats_movies_by_year_dict(db: Session):
+    query = db.query(models.Movie.year, 
+                    func.count().label("movie_count"),
+                    func.min(models.Movie.duration).label("min_duration"),
+                    func.max(models.Movie.duration).label("max_duration"),
+                    func.avg(models.Movie.duration).label("avg_duration"))  \
+        .group_by(models.Movie.year)     \
+        .order_by(models.Movie.year)   
+    return [ {'year':y, 'movie_count': mc, 'min_duration': mid, 'max_duration': mxd, 'avg_duration': ad} 
+            for y,mc,mid,mxd,ad in query ]
+
 # CRUD association
 
 def update_movie_director(db: Session, movie_id: int, director_id: int):

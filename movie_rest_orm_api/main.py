@@ -1,3 +1,6 @@
+"""
+    
+"""
 from typing import List, Optional, Tuple
 import logging
 
@@ -115,6 +118,9 @@ def read_movies_by_actor(n: str, db: Session = Depends(get_db)):
 def read_count_movies_by_year(db: Session = Depends(get_db)) -> List[Tuple[int, int]]:
     return crud.get_movies_count_by_year(db=db)
 
+@app.get("/movies/stats_by_year_dict", response_model=List[schemas.MovieStat])
+def read_stats_movies_by_year_dict(db: Session = Depends(get_db)):
+    return crud.get_stats_movies_by_year_dict(db=db)
 
 # --- API Rest for Stars ---
     
