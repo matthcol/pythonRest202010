@@ -164,8 +164,8 @@ def read_stars_by_movie_directed_title(t: str, db: Session = Depends(get_db)):
     return crud.get_star_director_movie_by_title(db=db, title=t)   
 
 @app.get("/stars/stats_movie_by_director")
-def read_stats_movie_by_director(db: Session = Depends(get_db)):
-    return crud.get_stats_movie_by_director(db=db)
+def read_stats_movie_by_director(minc: Optional[int] = 10, db: Session = Depends(get_db)):
+    return crud.get_stats_movie_by_director(db=db, min_count=minc)
 
 
 
